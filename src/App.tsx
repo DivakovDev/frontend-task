@@ -5,7 +5,7 @@ import Layout from './components/Layout.tsx'
 import Banners from './pages/banners/Banners.tsx'
 import { PageDataProvider } from './context/page-data/PageDataProvider.tsx'
 import Banner from './pages/banners/Banner.tsx'
-
+import CreateBannerPage from './pages/banners/CreateBannerPage.tsx'
 
 export default function App() {
     return (
@@ -30,6 +30,10 @@ export default function App() {
                             <Route
                                 path="*"
                                 element={<Navigate to={'/banners'} />}
+                            />
+                            <Route
+                                path="banners/create"
+                                element={<CreateBannerPage />}
                             />
                         </Route>
                     </Routes>

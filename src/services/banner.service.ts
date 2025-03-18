@@ -6,7 +6,24 @@ class BannerService {
     private readonly BANNER_KEY = 'banners'
 
     async createBanner(banner: BannerDto) {
-        this.saveBanners([banner, ...this.listBanners()])
+        const banners = this.listBanners()
+
+        // Check for duplicates
+        if (banners.some((existing) => existing.id === banner.id)) {
+            throw new Error('A banner with this ID already exists.')
+        } else if (banners.some((existing) => existing.link === banner.link)) {
+            throw new Error('A banner with this link already exists.')
+        }
+
+        // Generate a unique ID if is needed
+        if (!banner.id) {
+            banner.id = crypto.randomUUID()
+        }
+
+        banners.push(banner)
+        this.saveBanners(banners)
+
+        return banner
     }
 
     async getBanners(page: PageRequest) {
@@ -17,8 +34,10 @@ class BannerService {
         banners = banners.slice(page.page * page.pageSize, (page.page + 1) * page.pageSize)
         if (page.orderBy) {
             banners = banners.sort((a, b) => {
-                const valueA = (Object.entries(a).find(value => value[0] === page.orderBy) || [])[1]
-                const valueB = (Object.entries(b).find(value => value[0] === page.orderBy) || [])[1]
+                const valueA = (Object.entries(a).find((value) => value[0] === page.orderBy) ||
+                    [])[1]
+                const valueB = (Object.entries(b).find((value) => value[0] === page.orderBy) ||
+                    [])[1]
                 if (valueA < valueB) return -1
                 if (valueA > valueB) return 1
                 return 0
@@ -37,7 +56,7 @@ class BannerService {
     }
 
     async getBanner(id: string) {
-        return this.listBanners().find(banner => banner.id === id)
+        return this.listBanners().find((banner) => banner.id === id)
     }
 
     async updateBanner(id: string, banner: BannerDto) {

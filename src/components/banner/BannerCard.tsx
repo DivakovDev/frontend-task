@@ -11,13 +11,22 @@ export default function BannerCard(props: { banner?: BannerDto; delete?: () => v
 
     return (
         <Grid
-            xl={3}
-            lg={4}
-            md={6}
-            sm={6}
-            xs={12}
+            sx={{
+                display: 'flex',
+                justifyContent: 'center',
+            }}
         >
-            <Card sx={{ height: 400 }}>
+            <Card
+                sx={{
+                    maxHeight: 400,
+                    width: {
+                        xs: 220,
+                        sm: 300,
+                        md: 320,
+                        lg: 335,
+                    },
+                }}
+            >
                 <CardOverflow>
                     <Image url={props.banner?.imageUrl} />
                 </CardOverflow>
@@ -59,9 +68,11 @@ export default function BannerCard(props: { banner?: BannerDto; delete?: () => v
                     </IconButton>
                     <Button
                         variant="solid"
-                        type={'button'}
+                        type="button"
                         size="md"
-                        onClick={() => navigate({ pathname: `/landmarks/${props.banner!.id}` })}
+                        onClick={() =>
+                            props.banner && navigate({ pathname: `/landmarks/${props.banner.id}` })
+                        }
                         color="primary"
                         sx={{ width: '75%', alignSelf: 'center', fontWeight: 600 }}
                     >

@@ -5,9 +5,25 @@ import IconButton from '@mui/joy/IconButton'
 import { Delete } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
 import Image from '../Image.tsx'
+import BannerService from '../../services/banner.service.ts'
+
+import ConfirmModal from '../ConfirmModal.tsx'
+import { useState } from 'react'
 
 export default function BannerCard(props: { banner?: BannerDto; delete?: () => void }) {
     const navigate = useNavigate()
+
+    const [confirmOpen, setConfirmOpen] = useState(false)
+
+    async function handleConfirmDelete() {
+        if (!props.banner) return
+        try {
+            await BannerService.deleteBanner(props.banner.id!)
+            props.delete?.() // optional: remove the banner card from parent UI
+        } catch (error) {
+            console.error('Failed to delete banner:', error)
+        }
+    }
 
     return (
         <Grid
@@ -63,6 +79,7 @@ export default function BannerCard(props: { banner?: BannerDto; delete?: () => v
                         variant="outlined"
                         size="sm"
                         sx={{ width: '20%', alignSelf: 'center' }}
+                        onClick={() => setConfirmOpen(true)}
                     >
                         <Delete />
                     </IconButton>
@@ -80,6 +97,12 @@ export default function BannerCard(props: { banner?: BannerDto; delete?: () => v
                     </Button>
                 </CardActions>
             </Card>
+            <ConfirmModal
+                open={confirmOpen}
+                onClose={() => setConfirmOpen(false)}
+                confirm={handleConfirmDelete}
+                action="delete this banner"
+            />
         </Grid>
     )
 }

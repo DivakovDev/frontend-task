@@ -64,7 +64,17 @@ class BannerService {
     }
 
     async deleteBanner(id: string) {
-        //todo delete banner logic
+        const banners = this.listBanners()
+        const index = banners.findIndex((banner) => banner.id === id)
+        if (index === -1) {
+            throw new Error('Banner not found')
+        }
+
+        // Remove the banner from the list
+        banners.splice(index, 1)
+
+        // Save the updated list
+        this.saveBanners(banners)
     }
 
     private listBanners() {

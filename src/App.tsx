@@ -26,14 +26,13 @@ export default function App() {
                                 path="banners/:id"
                                 element={<Banner />}
                             />
-                            {/*<Route path="contact" element={<Contact />} />*/}
-                            <Route
-                                path="*"
-                                element={<Navigate to={'/banners'} />}
-                            />
                             <Route
                                 path="banners/create"
                                 element={<CreateBannerPage />}
+                            />
+                            <Route
+                                path="*"
+                                element={<Navigate to={'/banners'} />}
                             />
                         </Route>
                     </Routes>

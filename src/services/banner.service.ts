@@ -60,7 +60,25 @@ class BannerService {
     }
 
     async updateBanner(id: string, banner: BannerDto) {
-        //todo update banner logic
+        const banners = this.listBanners()
+        const index = banners.findIndex((banner) => banner.id === id)
+        if (index === -1) {
+            throw new Error('Banner not found')
+        }
+        // Check for duplicates
+        if (banners.some((existing) => existing.link === banner.link && existing.id !== id)) {
+            throw new Error('A banner with this link already exists.')
+        }
+
+        // Update the fields
+        banners[index].link = banner.link
+        banners[index].imageUrl = banner.imageUrl
+
+        // Save the updated list
+        this.saveBanners(banners)
+
+        // Return the updated banner
+        return banners[index]
     }
 
     async deleteBanner(id: string) {

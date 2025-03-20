@@ -13,13 +13,15 @@ import { useState } from 'react'
 export default function BannerCard(props: { banner?: BannerDto; delete?: () => void }) {
     const navigate = useNavigate()
 
+    // Track whether the confirmation modal is open
     const [confirmOpen, setConfirmOpen] = useState(false)
 
+    // This function is called when user clicks "Delete"
     async function handleConfirmDelete() {
         if (!props.banner) return
         try {
             await BannerService.deleteBanner(props.banner.id!)
-            props.delete?.() // optional: remove the banner card from parent UI
+            props.delete?.()
         } catch (error) {
             console.error('Failed to delete banner:', error)
         }
@@ -75,6 +77,7 @@ export default function BannerCard(props: { banner?: BannerDto; delete?: () => v
                     </Box>
                 </Box>
                 <CardActions>
+                    {/* Open the confirmation modal on click */}
                     <IconButton
                         variant="outlined"
                         size="sm"
@@ -87,9 +90,10 @@ export default function BannerCard(props: { banner?: BannerDto; delete?: () => v
                         variant="solid"
                         type="button"
                         size="md"
-                        onClick={() =>
-                            props.banner && navigate({ pathname: `/landmarks/${props.banner.id}` })
-                        }
+                        onClick={() => {
+                            if (!props.banner) return
+                            navigate(`/banners/${props.banner.id}/edit`)
+                        }}
                         color="primary"
                         sx={{ width: '75%', alignSelf: 'center', fontWeight: 600 }}
                     >
@@ -97,6 +101,7 @@ export default function BannerCard(props: { banner?: BannerDto; delete?: () => v
                     </Button>
                 </CardActions>
             </Card>
+            {/* ConfirmModal is shown and user make its choice */}
             <ConfirmModal
                 open={confirmOpen}
                 onClose={() => setConfirmOpen(false)}

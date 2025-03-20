@@ -5,7 +5,7 @@ import Layout from './components/Layout.tsx'
 import Banners from './pages/banners/Banners.tsx'
 import { PageDataProvider } from './context/page-data/PageDataProvider.tsx'
 import Banner from './pages/banners/Banner.tsx'
-import CreateBannerPage from './pages/banners/CreateBannerPage.tsx'
+import CUBannerPage from './pages/banners/CUBannerPage.tsx'
 
 export default function App() {
     return (
@@ -26,9 +26,15 @@ export default function App() {
                                 path="banners/:id"
                                 element={<Banner />}
                             />
+                            {/* create */}
                             <Route
                                 path="banners/create"
-                                element={<CreateBannerPage />}
+                                element={<CUBannerPage />}
+                            />
+                            {/* edit */}
+                            <Route
+                                path="banners/:id/edit"
+                                element={<CUBannerPage />}
                             />
                             <Route
                                 path="*"

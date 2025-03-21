@@ -73,6 +73,7 @@ class BannerService {
         // Update the fields
         banners[index].link = banner.link
         banners[index].imageUrl = banner.imageUrl
+        banners[index].description = banner.description
 
         // Save the updated list
         this.saveBanners(banners)

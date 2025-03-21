@@ -12,6 +12,7 @@ import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { usePageData } from '../../context/page-data/page-data.context.ts'
+import BackButton from '../../components/BackButton.tsx'
 
 export default function Banner() {
     const { setPageData } = usePageData()
@@ -64,10 +65,19 @@ export default function Banner() {
                 alignItems: 'center',
                 flexDirection: 'column',
             }}
-            gap={"30px"}
+            gap={'30px'}
         >
             <h1>ID: {id}</h1>
-            <Card sx={{ maxHeight: 500, width: 500 }}>
+            <Card
+                sx={{
+                    maxHeight: 500,
+                    width: {
+                        xs: 280,
+                        sm: 350,
+                        lg: 500,
+                    },
+                }}
+            >
                 <CardOverflow>
                     <Image url={banner.imageUrl} />
                 </CardOverflow>
@@ -75,9 +85,9 @@ export default function Banner() {
                     <Box
                         sx={{
                             display: 'flex',
+                            flexDirection: 'column',
                             gap: 2,
                             alignItems: 'center',
-                            justifyContent: 'space-between',
                         }}
                     >
                         <Typography
@@ -96,6 +106,19 @@ export default function Banner() {
                             >
                                 {banner.link}
                             </Skeleton>
+                        </Typography>
+                        <Typography
+                            level="body-md"
+                            sx={{
+                                width: '100%',
+                                display: '-webkit-box',
+                                WebkitBoxOrient: 'vertical',
+                                WebkitLineClamp: 3,
+                                overflow: 'hidden',
+                                mt: 1,
+                            }}
+                        >
+                            {banner.description}
                         </Typography>
                     </Box>
                 </Box>
@@ -127,6 +150,7 @@ export default function Banner() {
                 confirm={handleConfirmDelete}
                 action="delete this banner"
             />
+            <BackButton />
         </Grid>
     )
 }

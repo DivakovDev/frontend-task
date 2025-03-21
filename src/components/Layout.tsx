@@ -45,7 +45,7 @@ export default function Layout() {
                             gap: 1,
                             paddingLeft: 2,
                             paddingRight: 2,
-                            paddingBottom: 30,
+                            paddingBottom: "30px",
                             flexDirection: { xs: 'column', sm: 'row' },
                             alignItems: { xs: 'start', sm: 'center' },
                             flexWrap: 'wrap',

@@ -64,7 +64,7 @@ export default function Banner() {
                 alignItems: 'center',
                 flexDirection: 'column',
             }}
-            gap={30}
+            gap={"30px"}
         >
             <h1>ID: {id}</h1>
             <Card sx={{ maxHeight: 500, width: 500 }}>

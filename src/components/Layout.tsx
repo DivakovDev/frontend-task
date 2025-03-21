@@ -40,12 +40,11 @@ export default function Layout() {
                 >
                     <Sheet
                         sx={{
-                            height: '4dvh',
                             display: 'flex',
                             gap: 1,
                             paddingLeft: 2,
                             paddingRight: 2,
-                            paddingBottom: "30px",
+                            paddingBottom: "2px",
                             flexDirection: { xs: 'column', sm: 'row' },
                             alignItems: { xs: 'start', sm: 'center' },
                             flexWrap: 'wrap',

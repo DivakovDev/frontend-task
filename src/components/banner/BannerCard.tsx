@@ -45,7 +45,13 @@ export default function BannerCard(props: { banner?: BannerDto; delete?: () => v
                     },
                 }}
             >
-                <CardOverflow>
+                <CardOverflow
+                    sx={{ cursor: 'pointer' }}
+                    onClick={() => {
+                        if (!props.banner) return
+                        navigate(`/banners/${props.banner.id}`)
+                    }}
+                >
                     <Image url={props.banner?.imageUrl} />
                 </CardOverflow>
                 <Box>
